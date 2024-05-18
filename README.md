@@ -31,6 +31,9 @@ sudo dnf install wget
 ```
 
 **Ubuntu/Debian**
+For Ubuntu/Debian based distributions, you can download the .deb file from the [Github Releases Page](https://github.com/TurkishLinuxUser/spitbg/releases) instead of dealing with commands :))
+
+or
 
 Curl:
 ```
