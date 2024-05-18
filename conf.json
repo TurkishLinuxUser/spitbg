@@ -1,0 +1,23 @@
+{
+  "backgrounds": [
+    {
+      "filename": "bg.jpg", 
+      "directory": "/home/", 
+      "start": "00:00", 
+      "end": "00:00"
+    },
+    {
+      "filename": "bg.jpg", 
+      "directory": "/home/", 
+      "start": "00:00", 
+      "end": "00:00" 
+    },
+    {
+      "filename": "bg.jpg", 
+      "directory": "/home/",
+      "start": "00:00", 
+      "end": "00:00" 
+    }
+  ],
+  "check": "X"
+}
