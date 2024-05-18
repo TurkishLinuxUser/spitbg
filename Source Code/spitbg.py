@@ -5,6 +5,7 @@ import json
 import platform
 from colorama import init, Fore, Back, Style
 import os
+import sys
 import argparse
 
 # background class
