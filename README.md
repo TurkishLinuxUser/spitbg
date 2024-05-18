@@ -50,14 +50,18 @@ Then you can download SpitBG:
 
 Download with Curl:
 ```
-sudo curl -o /usr/local/bin/spitbg https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg && sudo curl -o /usr/local/bin/spitbg_conf.json https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg_conf.json && sudo chmod +x /usr/local/bin/spitbg /usr/local/bin/spitbg_conf.json
+sudo curl -o /usr/local/bin/spitbg https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg && sudo curl -o /usr/local/bin/config_gui.py https://github.com/TurkishLinuxUser/spitbg/raw/main/config_gui.py && sudo curl -o /usr/local/bin/spitbg_conf.json https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg_conf.json && sudo chmod +x /usr/local/bin/spitbg /usr/local/bin/spitbg_conf.json /usr/local/bin/config_gui.py
 ```
 
 Download with Wget:
 ```
-sudo wget -O /usr/local/bin/spitbg https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg && sudo wget -O /usr/local/bin/spitbg_conf.json https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg_conf.json && sudo chmod +x /usr/local/bin/spitbg /usr/local/bin/spitbg_conf.json
+sudo wget -O /usr/local/bin/spitbg https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg && sudo wget -O /usr/local/bin/config_gui.py https://github.com/TurkishLinuxUser/spitbg/raw/main/config_gui.py && sudo wget -O /usr/local/bin/spitbg_conf.json https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg_conf.json && sudo chmod +x /usr/local/bin/spitbg /usr/local/bin/spitbg_conf.json /usr/local/bin/config_gui.py
 ```
 
 ## Usage:
 
-Simply type `spitbg` in the terminal. It will tell you what to do :)
+Usage: spitbg
+Options:
+  -h, --help    Show help message and exit
+  -c, --config  Opens config file editor in GUI mode to easily edit your config file
+
