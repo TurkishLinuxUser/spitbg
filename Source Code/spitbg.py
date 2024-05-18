@@ -15,7 +15,6 @@ def parse_arguments():
 
     return parser.parse_args()
 
-# background class
 class Background:
     def __init__(self, filename: str, directory: str, start: str, end: str) -> None:
         self.filename = filename
@@ -23,7 +22,6 @@ class Background:
         self.start = start
         self.end = end
 
-# method to read configuration from conf.json
 def read_configuration(file_path: str) -> tuple[list[Background], str]:
     backgrounds = []
     check = ""
@@ -39,7 +37,6 @@ def read_configuration(file_path: str) -> tuple[list[Background], str]:
         pass
     return backgrounds, check
 
-# method to change background spesific time
 def set_background_at_time(backgrounds: list[Background]) -> None:
     now = datetime.now().time()
     for item in backgrounds:
@@ -55,23 +52,19 @@ def set_background_at_time(backgrounds: list[Background]) -> None:
                 set_background(item.directory + item.filename)
                 break
 
-# method to change background
 def set_background(image_path):
     command = ["feh", "--bg-fill", image_path]
     subprocess.run(command)
-
-# method to check if conf.json is properly configured
+    
 def check_configuration(check: str) -> None:
     if check.upper() != "Y":
-        print(Fore.RED + "❌ Please config the conf.json file as needed and update the 'check' value to 'Y'" + Style.RESET_ALL)
-        print("Config File:    /usr/local/bin/spitbg_conf.json")
+        print(Fore.RED + "❌ Please configure the spitbg_conf.json file as needed by typing spitbg -c or spitbg --config and update the 'check' value to 'Y'" + Style.RESET_ALL)
         sys.exit(1)
 
 # main loop
 def main() -> None:
     args = parse_arguments()
-
-    # Eğer `-c` veya `--config` argümanı verildiyse GUI konfigürasyon modunu başlat
+    
     if args.config:
      subprocess.run(["python3", "config_gui.py"])
     else:
@@ -80,13 +73,8 @@ def main() -> None:
      check_configuration(check)
 
      while True:
-        # check now
         now = datetime.now()
-
-        # set background according to configured times
         set_background_at_time(backgrounds)
-
-        # check every minute
         time.sleep(60)
 
 if __name__ == '__main__':
