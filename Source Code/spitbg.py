@@ -57,11 +57,11 @@ def check_configuration(check: str) -> None:
     if check.upper() != "Y":
         print(Fore.RED + "❌ Please config the conf.json file as needed and update the 'check' value to 'Y'" + Style.RESET_ALL)
         print("Config File:    ~/.config/spitbg/conf.json")
-        exit(1)
+        sys.exit(1)
 
 # main loop
 def main() -> None:
-    conf_file = "conf.json"
+    conf_file = "~/.config/spitbg/conf.json"
     backgrounds, check = read_configuration(conf_file)
     check_configuration(check)
 
