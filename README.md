@@ -54,3 +54,6 @@ Download with Wget:
 sudo wget -O /usr/bin/spitbg https://github.com/TurkishLinuxUser/spitbg/raw/main/spitbg && sudo mkdir -p ~/.config/spitbg && sudo wget -O ~/.config/spitbg/conf.json https://github.com/TurkishLinuxUser/spitbg/raw/main/conf.json && sudo chmod +x /usr/bin/spitbg ~/.config/spitbg/conf.json
 ```
 
+## Usage:
+
+Simply type `spitbg` in the terminal. It will tell you what to do :)
