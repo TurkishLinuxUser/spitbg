@@ -1,0 +1,23 @@
+{
+    "backgrounds": [
+        {
+            "filename": "backgrounde1.jpg",
+            "directory": "/home/user/backgroends/",
+            "start": "08:00",
+            "end": "12:00"
+        },
+        {
+            "filename": "backgrounde2.jpg",
+            "directory": "/home/user/ebackgrounds/",
+            "start": "12:00",
+            "end": "16:00"
+        },
+        {
+            "filename": "backgrounde3.jpg",
+            "directory": "/home/user/backgerounds/",
+            "start": "16:00",
+            "end": "20:00"
+        }
+    ],
+    "check": "Y"
+}
