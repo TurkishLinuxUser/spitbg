@@ -57,12 +57,12 @@ def set_background(image_path):
 def check_configuration(check: str) -> None:
     if check.upper() != "Y":
         print(Fore.RED + "❌ Please config the conf.json file as needed and update the 'check' value to 'Y'" + Style.RESET_ALL)
-        print("Config File:    ~/.config/spitbg/conf.json")
+        print("Config File:    /usr/local/bin/spitbg_conf.json")
         sys.exit(1)
 
 # main loop
 def main() -> None:
-    conf_file = "~/.config/spitbg/conf.json"
+    conf_file = "/usr/local/bin/spitbg_conf.json"
     backgrounds, check = read_configuration(conf_file)
     check_configuration(check)
 
