@@ -5,6 +5,7 @@ import webbrowser
 import requests
 import json
 import os
+import argparse
 
 class App(QWidget):
     def __init__(self):
@@ -43,7 +44,6 @@ class App(QWidget):
 
     def check_updates(self):
         current_version = self.get_current_version_from_config()
-
         latest_version = self.get_latest_version_from_github()
 
         if latest_version and latest_version != current_version:
@@ -85,7 +85,6 @@ class App(QWidget):
     def update_tool(self):
             webbrowser.open("https://github.com/TurkishLinuxUser/spitbg/blob/main/README.md")
             return
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

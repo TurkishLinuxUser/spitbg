@@ -8,19 +8,14 @@ import os
 import sys
 import argparse
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(description="Spit Background Configuration")
-
-    parser.add_argument("-c", "--config", action="store_true", help="Opens config file editor in GUI mode to easily edit your config file")
-
-    return parser.parse_args()
-
 class Background:
-    def __init__(self, filename: str, directory: str, start: str, end: str) -> None:
+    def __init__(self, filename: str, start: str, end: str) -> None:
         self.filename = filename
-        self.directory = directory
         self.start = start
         self.end = end
+
+    def full_path(self, directory: str) -> str:
+        return os.path.join(directory, self.filename)
 
 def read_configuration(file_path: str) -> tuple[list[Background], str]:
     backgrounds = []
@@ -30,7 +25,7 @@ def read_configuration(file_path: str) -> tuple[list[Background], str]:
             config = json.load(f)
             if "backgrounds" in config:
                 for bg in config["backgrounds"]:
-                    backgrounds.append(Background(bg["filename"], bg["directory"], bg["start"], bg["end"]))
+                    backgrounds.append(Background(bg["filename"], bg["start"], bg["end"]))
             if "check" in config:
                 check = config["check"]
     except FileNotFoundError:
@@ -45,11 +40,11 @@ def set_background_at_time(backgrounds: list[Background]) -> None:
 
         if start_time < end_time:
             if start_time <= now < end_time:
-                set_background(item.directory + item.filename)
+                set_background(item.filename)
                 break
         else:
             if now >= start_time or now < end_time:
-                set_background(item.directory + item.filename)
+                set_background(item.filename)
                 break
 
 def set_background(image_path):
@@ -58,12 +53,11 @@ def set_background(image_path):
     
 def check_configuration(check: str) -> None:
     if check.upper() != "Y":
-        print(Fore.RED + "❌ Please configure the spitbg_conf.json file as needed by typing spitbg -c or spitbg --config and update the 'check' value to 'Y'" + Style.RESET_ALL)
+        print(Fore.RED + "❌ Please configure the spitbg_conf.json file as needed by typing spitbg and update the 'check' value to 'Y'" + Style.RESET_ALL)
         sys.exit(1)
 
 # main loop
 def main() -> None:
-    args = parse_arguments()
     conf_file = "/usr/local/bin/spitbg_conf.json"
     backgrounds, check = read_configuration(conf_file)
     check_configuration(check)

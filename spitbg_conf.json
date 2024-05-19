@@ -1,24 +1,21 @@
 {
-  "backgrounds": [
-    {
-      "filename": "bg.jpg", 
-      "directory": "/home/", 
-      "start": "00:00", 
-      "end": "00:00"
-    },
-    {
-      "filename": "bg.jpg", 
-      "directory": "/home/", 
-      "start": "00:00", 
-      "end": "00:00" 
-    },
-    {
-      "filename": "bg.jpg", 
-      "directory": "/home/",
-      "start": "00:00", 
-      "end": "00:00" 
-    }
-  ],
-  "check": "X",
-  "version":"2.0.0"
+    "backgrounds": [
+        {
+            "filename": "bg.jpg",
+            "start": "08:00",
+            "end": "12:00"
+        },
+        {
+            "filename": "bg2.jpg",
+            "start": "12:00",
+            "end": "16:00"
+        },
+        {
+            "filename": "bg3.jpg",
+            "start": "16:00",
+            "end": "20:00"
+        }
+    ],
+    "check": "X",
+    "version":"2.5.0"
 }
