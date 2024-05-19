@@ -8,4 +8,4 @@ sudo curl -o /usr/local/bin/spitbg_conf.json https://github.com/TurkishLinuxUser
 sudo chmod +x /usr/local/bin/spitbg /usr/local/bin/spitbg_conf.json /usr/local/bin/config_gui.py
 
 # Güncelleme tamamlandıktan sonra update.sh dosyasını silme
-rm update.sh
+rm update_curl.sh
