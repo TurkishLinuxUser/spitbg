@@ -45,12 +45,11 @@ class ConfigEditor(QWidget):
 
     def addBackgrounds(self):
      for i, background in enumerate(self.backgrounds):
-        background_layout = QHBoxLayout()  # Yatay bir düzen oluşturuyoruz
+        background_layout = QHBoxLayout() 
         self.addBackground(background, i, background_layout)
-        self.layout.addLayout(background_layout)  # Ana düzene yatay düzeni ekliyoruz
+        self.layout.addLayout(background_layout) 
 
     def addBackground(self, background, index, layout):
-    # Arka planı eklemek için bu sefer ana düzene değil, verilen yatay düzene ekliyoruz
      filename_label = QLabel("Filename:")
      filename_edit = QLineEdit(background.get("filename", ""))
      layout.addWidget(filename_label)
@@ -91,7 +90,7 @@ class ConfigEditor(QWidget):
                 for j in range(background_group.count()):
                     widget = background_group.itemAt(j).widget()
                     if isinstance(widget, QLineEdit):
-                        label_text = background_group.itemAt(j - 1).widget().text()  # Get label text
+                        label_text = background_group.itemAt(j - 1).widget().text()
                         if label_text == "Filename:":
                             background["filename"] = widget.text()
                         elif label_text == "Directory:":
@@ -104,13 +103,18 @@ class ConfigEditor(QWidget):
 
         check = self.check_combobox.currentText()
 
-        config = {"backgrounds": backgrounds, "check": check}
+        with open("/usr/local/bin/spitbg_conf.json", "r") as f:
+            config = json.load(f)
+
+        config["backgrounds"] = backgrounds
+        config["check"] = check
+
         with open("/usr/local/bin/spitbg_conf.json", "w") as f:
             json.dump(config, f, indent=4)
+
         QMessageBox.information(self, "Success", "Config file saved successfully!")
      except Exception as e:
         QMessageBox.warning(self, "Warning", f"Error saving config: {e}")
-
 
 
 if __name__ == "__main__":

@@ -1,81 +1,94 @@
-import subprocess
-from datetime import datetime
-import time
-import json
-import platform
-from colorama import init, Fore, Back, Style
-import os
 import sys
-import argparse
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox
+import subprocess
+import webbrowser
+import requests
+import json
+import os
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(description="Spit Background Configuration")
+class App(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("SpitBG Tool")
+        self.resize(230, 50)
 
-    parser.add_argument("-c", "--config", action="store_true", help="Opens config file editor in GUI mode to easily edit your config file")
+        layout = QVBoxLayout()
 
-    return parser.parse_args()
+        self.start_button = QPushButton("Start", self)
+        self.start_button.clicked.connect(self.start)
+        layout.addWidget(self.start_button)
 
-class Background:
-    def __init__(self, filename: str, directory: str, start: str, end: str) -> None:
-        self.filename = filename
-        self.directory = directory
-        self.start = start
-        self.end = end
+        self.stop_button = QPushButton("Stop", self)
+        self.stop_button.clicked.connect(self.stop)
+        layout.addWidget(self.stop_button)
 
-def read_configuration(file_path: str) -> tuple[list[Background], str]:
-    backgrounds = []
-    check = ""
-    try:
-        with open(file_path, 'r') as f:
-            config = json.load(f)
-            if "backgrounds" in config:
-                for bg in config["backgrounds"]:
-                    backgrounds.append(Background(bg["filename"], bg["directory"], bg["start"], bg["end"]))
-            if "check" in config:
-                check = config["check"]
-    except FileNotFoundError:
-        pass
-    return backgrounds, check
+        self.config_edit_button = QPushButton("Config Edit", self)
+        self.config_edit_button.clicked.connect(self.edit_config)
+        layout.addWidget(self.config_edit_button)
 
-def set_background_at_time(backgrounds: list[Background]) -> None:
-    now = datetime.now().time()
-    for item in backgrounds:
-        start_time = datetime.strptime(item.start, "%H:%M").time()
-        end_time = datetime.strptime(item.end, "%H:%M").time()
+        self.check_updates_button = QPushButton("Check Updates", self)
+        self.check_updates_button.clicked.connect(self.check_updates)
+        layout.addWidget(self.check_updates_button)
 
-        if start_time < end_time:
-            if start_time <= now < end_time:
-                set_background(item.directory + item.filename)
-                break
+        self.setLayout(layout)
+
+    def start(self):
+        subprocess.Popen(["python3", "/usr/local/bin/spitbg_bd.py"])
+
+    def stop(self):
+        subprocess.Popen(["pkill", "-f", "spitbg_bd.py"])
+
+    def edit_config(self):
+        subprocess.Popen(["python3", "/usr/local/bin/config_gui.py"])
+
+    def check_updates(self):
+        current_version = self.get_current_version_from_config()
+
+        latest_version = self.get_latest_version_from_github()
+
+        if latest_version and latest_version != current_version:
+            self.show_update_notification()
         else:
-            if now >= start_time or now < end_time:
-                set_background(item.directory + item.filename)
-                break
+            QMessageBox.information(self, "No Updates", "No updates available.")
 
-def set_background(image_path):
-    command = ["feh", "--bg-fill", image_path]
-    subprocess.run(command)
-    
-def check_configuration(check: str) -> None:
-    if check.upper() != "Y":
-        print(Fore.RED + "❌ Please configure the spitbg_conf.json file as needed by typing spitbg -c or spitbg --config and update the 'check' value to 'Y'" + Style.RESET_ALL)
-        sys.exit(1)
+    def get_current_version_from_config(self):
+        try:
+            with open("spitbg_conf.json", "r") as f:
+                config_data = json.load(f)
+                current_version = config_data["version"]
+                return current_version
+        except Exception as e:
+            print("Error reading current version from config:", e)
+            return None
 
-# main loop
-def main() -> None:
-    args = parse_arguments()
-    
-    if args.config:
-     subprocess.run(["python3", "/usr/local/bin/config_gui.py"])
-    else:
-     conf_file = "/usr/local/bin/spitbg_conf.json"
-     backgrounds, check = read_configuration(conf_file)
-     check_configuration(check)
+    def get_latest_version_from_github(self):
+        try:
+            response = requests.get("https://raw.githubusercontent.com/TurkishLinuxUser/spitbg/main/version/check_updates.txt")
+            latest_release = response.text.strip() 
+            return latest_release
+        except Exception as e:
+            print("Error fetching latest version from GitHub:", e)
+            return None
 
-     while True:
-        now = datetime.now()
-        set_background_at_time(backgrounds)
-        time.sleep(60)
+    def show_update_notification(self):
+        update_dialog = QMessageBox(self)
+        update_dialog.setWindowTitle("Update Available")
+        update_dialog.setText("An update is available!")
+
+        update_button = QPushButton("Update", update_dialog)
+        update_button.clicked.connect(self.update_tool)
+
+        update_dialog.addButton(update_button, QMessageBox.ActionRole)
+
+        update_dialog.exec_()
+
+    def update_tool(self):
+            webbrowser.open("https://github.com/TurkishLinuxUser/spitbg/blob/main/README.md")
+            return
+
 
 if __name__ == '__main__':
-    main()
+    app = QApplication(sys.argv)
+    window = App()
+    window.show()
+    sys.exit(app.exec_())

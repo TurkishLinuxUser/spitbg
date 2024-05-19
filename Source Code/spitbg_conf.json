@@ -1,23 +1,24 @@
 {
-    "backgrounds": [
-        {
-            "filename": "backgrounde1.jpg",
-            "directory": "/home/user/backgroends/",
-            "start": "08:00",
-            "end": "12:00"
-        },
-        {
-            "filename": "backgrounde2.jpg",
-            "directory": "/home/user/ebackgrounds/",
-            "start": "12:00",
-            "end": "16:00"
-        },
-        {
-            "filename": "backgrounde3.jpg",
-            "directory": "/home/user/backgerounds/",
-            "start": "16:00",
-            "end": "20:00"
-        }
-    ],
-    "check": "Y"
+  "backgrounds": [
+    {
+      "filename": "bg.jpg", 
+      "directory": "/home/", 
+      "start": "00:00", 
+      "end": "00:00"
+    },
+    {
+      "filename": "bg.jpg", 
+      "directory": "/home/", 
+      "start": "00:00", 
+      "end": "00:00" 
+    },
+    {
+      "filename": "bg.jpg", 
+      "directory": "/home/",
+      "start": "00:00", 
+      "end": "00:00" 
+    }
+  ],
+  "check": "X",
+  "version":"2.0.0"
 }
