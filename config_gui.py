@@ -34,7 +34,7 @@ class ConfigEditor(QWidget):
 
     def loadConfig(self):
         try:
-            with open("spitbg_conf.json", "r") as f:
+            with open("/usr/local/bin/spitbg_conf.json", "r") as f:
                 config = json.load(f)
                 self.backgrounds = config.get("backgrounds", [])
                 self.check = config.get("check", "")
@@ -105,7 +105,7 @@ class ConfigEditor(QWidget):
         check = self.check_combobox.currentText()
 
         config = {"backgrounds": backgrounds, "check": check}
-        with open("spitbg_conf.json", "w") as f:
+        with open("/usr/local/bin/spitbg_conf.json", "w") as f:
             json.dump(config, f, indent=4)
         QMessageBox.information(self, "Success", "Config file saved successfully!")
      except Exception as e:
