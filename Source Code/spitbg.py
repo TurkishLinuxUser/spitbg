@@ -68,7 +68,7 @@ def main() -> None:
     if args.config:
      subprocess.run(["python3", "/usr/local/bin/config_gui.py"])
     else:
-     conf_file = "spitbg_conf.json"
+     conf_file = "/usr/local/bin/spitbg_conf.json"
      backgrounds, check = read_configuration(conf_file)
      check_configuration(check)
 
